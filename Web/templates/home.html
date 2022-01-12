@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <title>To Do List</title>
+</head>
+<body>
+    <div class="container">
+        <div class="judul">
+            <h2>To Do List</h2>
+        </div>
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="text" placeholder="Kegiatan" name="kegiatan">
+            <button>Submit</button>
+        </form>
+        <div class="result">
+            <ul>
+                {% for list in data %}
+                <li>{{list}} <i class='bx bx-x' data-url="{{list.id}}"></i></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <script>
+        const x = document.querySelectorAll('.container .bx-x');
+        x.forEach(i=>{
+            i.addEventListener('click',()=>{
+                window.location.href=`/del/${i.dataset.url}`
+            });
+        })
+    </script>
+</body>
+</html>
